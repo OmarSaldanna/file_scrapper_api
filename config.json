@@ -1,0 +1,12 @@
+{
+  "extension_mappings": {
+    ".md": "scrappers.get_md",
+    ".pdf": "scrappers.get_pdf",
+    ".pptx": "scrappers.get_pptx"
+  },
+  "server_config": {
+    "debug": true,
+    "host": "0.0.0.0",
+    "port": 5670
+  }
+}
