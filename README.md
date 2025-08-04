@@ -1,46 +1,67 @@
-# 🚀 RAG File Scrapper API
+# 🚀 File Scrapper API _For RAG_
+--> Made out of Ker SDB parts <--
 
-Una API poderosa y elegante construida con Flask que extrae y procesa contenido de diferentes tipos de archivos de manera inteligente.
+A powerful and elegant Flask-based API that intelligently extracts and processes content from different file types.
 
-## ✨ Características
+## ✨ Features
 
-- 🔄 **Procesamiento Dinámico**: Detecta automáticamente el tipo de archivo y usa el scrapper apropiado
-- 📝 **Múltiples Formatos**: Soporte para Markdown (`.md`), PDF (`.pdf`) y PowerPoint (`.pptx`)
-- 🌐 **UTF-8 Completo**: Manejo perfecto de caracteres especiales y acentos
-- ⚙️ **Configuración Externa**: Fácil modificación de extensiones y configuraciones del servidor
-- 🛡️ **Manejo Robusto de Errores**: Validaciones completas y mensajes de error claros
-- 📊 **Endpoints Adicionales**: Health check y consulta de extensiones soportadas
+- 🔄 **Dynamic Processing**: Automatically detects file type and uses the appropriate scrapper
+- 📝 **Multiple Formats**: Support for Markdown (`.md`), PDF (`.pdf`) and PowerPoint (`.pptx`)
+- 🌐 **Full UTF-8**: Perfect handling of special characters and accents
+- ⚙️ **External Configuration**: Easy modification of extensions and server settings
+- 🛡️ **Robust Error Handling**: Complete validations and clear error messages
+- 📊 **Additional Endpoints**: Health check and supported extensions query
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 rag_file_scrapper/
-├── 📄 api.py              # API principal de Flask
-├── ⚙️ config.json         # Configuraciones del sistema
-├── 📁 scrappers/          # Módulos de procesamiento
-│   ├── 🔍 get_md.py       # Procesador de Markdown
-│   ├── 📋 get_pdf.py      # Procesador de PDF
-│   └── 🎯 get_pptx.py     # Procesador de PowerPoint
-├── 📖 README.md           # Este archivo
-└── 🚫 .gitignore          # Archivos ignorados por Git
+├── 📄 api.py              # Main Flask API
+├── ⚙️ config.json         # System configurations
+├── 📋 requirements.txt    # Python dependencies
+├── 📁 scrappers/          # Processing modules
+│   ├── 🔍 get_md.py       # Markdown processor
+│   ├── 📋 get_pdf.py      # PDF processor
+│   └── 🎯 get_pptx.py     # PowerPoint processor
+├── 📖 README.md           # This file
+└── 🚫 .gitignore          # Files ignored by Git
 ```
 
-## 🚀 Instalación Rápida
+## 📦 Installation
 
-### 1. Clona el repositorio
+### 1. Clone the repository
 ```bash
-git clone <tu-repositorio>
+git clone <your-repository>
 cd rag_file_scrapper
 ```
 
-### 2. Instala las dependencias
+### 2. Create and activate virtual environment
+
+**On Windows:**
 ```bash
-pip install flask
-# Instala las dependencias específicas para cada scrapper según tus necesidades
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+venv\Scripts\activate
 ```
 
-### 3. Configura el sistema
-Edita `config.json` para ajustar extensiones y configuraciones del servidor:
+**On macOS/Linux:**
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure the system
+Edit `config.json` to adjust extensions and server configurations:
 
 ```json
 {
@@ -52,42 +73,44 @@ Edita `config.json` para ajustar extensiones y configuraciones del servidor:
   "server_config": {
     "debug": true,
     "host": "0.0.0.0",
-    "port": 5000
+    "port": 5670
   }
 }
 ```
 
-### 4. ¡Ejecuta la API!
+### 5. Run the API! 🎉
 ```bash
 python api.py
 ```
 
-## 🎯 Uso de la API
+The API will be available at `http://localhost:5670`
 
-### 📤 Procesar Archivo
+## 🎯 API Usage
+
+### 📤 Process File
 **Endpoint:** `POST /process-file`
 
 ```bash
-curl -X POST http://localhost:5000/process-file \
+curl -X POST http://localhost:5670/process-file \
   -H "Content-Type: application/json; charset=utf-8" \
-  -d '{"file": "/ruta/absoluta/archivo.pdf"}' \
-  -o resultado.json
+  -d '{"file": "/absolute/path/to/file.pdf"}' \
+  -o result.json
 ```
 
-**Respuesta de éxito:**
+**Success Response:**
 ```json
 {
   "content": {
-    "título": "Contenido extraído del archivo",
-    "datos": ["información", "procesada", "correctamente"]
+    "title": "Content extracted from file",
+    "data": ["information", "processed", "correctly"]
   }
 }
 ```
 
-**Respuesta de error:**
+**Error Response:**
 ```json
 {
-  "error": "Descripción detallada del error"
+  "error": "Detailed error description"
 }
 ```
 
@@ -95,29 +118,29 @@ curl -X POST http://localhost:5000/process-file \
 **Endpoint:** `GET /health`
 
 ```bash
-curl http://localhost:5000/health
+curl http://localhost:5670/health
 ```
 
-### 📋 Extensiones Soportadas
+### 📋 Supported Extensions
 **Endpoint:** `GET /supported-extensions`
 
 ```bash
-curl http://localhost:5000/supported-extensions
+curl http://localhost:5670/supported-extensions
 ```
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Agregar Nuevos Tipos de Archivo
+### Adding New File Types
 
-1. **Crea un nuevo scrapper** en la carpeta `scrappers/`:
+1. **Create a new scrapper** in the `scrappers/` folder:
 ```python
 # scrappers/get_txt.py
 def analyze(input_file):
-    # Tu lógica de procesamiento aquí
-    return {"content": "contenido procesado"}
+    # Your processing logic here
+    return {"content": "processed content"}
 ```
 
-2. **Actualiza config.json**:
+2. **Update config.json**:
 ```json
 {
   "extension_mappings": {
@@ -129,91 +152,102 @@ def analyze(input_file):
 }
 ```
 
-3. **¡Reinicia la API y listo!** 🎉
+3. **Restart the API and you're done!** 🎉
 
-### Modificar Configuración del Servidor
+### Modify Server Configuration
 
-Edita la sección `server_config` en `config.json`:
+Edit the `server_config` section in `config.json`:
 
 ```json
 {
   "server_config": {
-    "debug": false,        # Producción
-    "host": "127.0.0.1",   # Solo local
-    "port": 5670           # Puerto personalizado
+    "debug": false,        # Production
+    "host": "127.0.0.1",   # Local or 0.0.0.0 for public
+    "port": 5670           # Custom port
   }
 }
 ```
 
-## 🛠️ Desarrollo
+## 🛠️ Development
 
-### Requisitos de los Scrappers
+### Scrapper Requirements
 
-Cada scrapper debe:
-- Tener una función `analyze(input_file)`
-- Recibir la ruta absoluta del archivo como parámetro
-- Retornar un diccionario Python con el contenido procesado
-- Manejar errores internamente o propagarlos apropiadamente
+Each scrapper must:
+- Have an `analyze(input_file)` function
+- Receive the absolute file path as parameter
+- Return a Python dictionary with processed content
+- Handle errors internally or propagate them appropriately
 
-### Ejemplo de Scrapper
+### Scrapper Example
 
 ```python
 def analyze(input_file):
     """
-    Procesa un archivo y extrae su contenido
+    Processes a file and extracts its content
     
     Args:
-        input_file (str): Ruta absoluta al archivo
+        input_file (str): Absolute path to the file
         
     Returns:
-        dict: Contenido procesado del archivo
+        dict: Processed file content
     """
     try:
-        # Tu lógica de procesamiento
-        content = procesar_archivo(input_file)
+        # Your processing logic
+        content = process_file(input_file)
         return {
-            "titulo": content.titulo,
-            "contenido": content.texto,
-            "metadatos": content.info
+            "title": content.title,
+            "content": content.text,
+            "metadata": content.info
         }
     except Exception as e:
-        raise Exception(f"Error procesando archivo: {str(e)}")
+        raise Exception(f"Error processing file: {str(e)}")
 ```
 
-## 🚨 Códigos de Estado HTTP
+## 🚨 HTTP Status Codes
 
-| Código | Significado | Descripción |
-|--------|-------------|-------------|
-| 200 | ✅ Éxito | Archivo procesado correctamente |
-| 400 | ❌ Bad Request | Parámetros inválidos o extensión no soportada |
-| 404 | 🔍 Not Found | Archivo no encontrado |
-| 500 | 💥 Server Error | Error interno del servidor |
+| Code | Meaning | Description |
+|------|---------|-------------|
+| 200 | ✅ Success | File processed successfully |
+| 400 | ❌ Bad Request | Invalid parameters or unsupported extension |
+| 404 | 🔍 Not Found | File not found |
+| 500 | 💥 Server Error | Internal server error |
 
-## 🤝 Contribuir
+## 📚 Dependencies
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+The main dependencies include:
+- **Flask**: Web framework for the API
+- **Additional libraries**: Specific to each scrapper (PDF processing, Office documents, etc.)
 
-## 📝 Notas Importantes
+Check `requirements.txt` for the complete list of dependencies.
 
-- ⚠️ **Rutas Absolutas**: La API requiere rutas absolutas a los archivos
-- 🔤 **UTF-8**: Soporte completo para caracteres especiales y acentos
-- 🔧 **Configuración Externa**: Todas las configuraciones están en `config.json`
-- 🛡️ **Validaciones**: La API valida existencia de archivos y parámetros
+## 🤝 Contributing
 
-## 📄 Licencia
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+## 📝 Important Notes
 
----
+- ⚠️ **Absolute Paths**: The API requires absolute paths to files
+- 🔤 **UTF-8**: Full support for special characters and accents
+- 🔧 **External Configuration**: All settings are in `config.json`
+- 🛡️ **Validations**: The API validates file existence and parameters
+- 🐍 **Virtual Environment**: Always use a virtual environment for isolation
 
-<div align="center">
+## 🚀 Quick Start
 
-**¿Problemas o sugerencias?** 
+```bash
+# Clone and setup
+git clone https://github.com/OmarSaldanna/file_scrapper_api.git
+cd file_scrapper_api
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
 
-[Abre un issue](../../issues) • [Contribuye](../../pulls) • [Documentación](../../wiki)
+# Run
+python api.py
 
-</div>
+# sh tests/pdf.sh
+```
