@@ -3,6 +3,7 @@ import re
 from pptx import Presentation
 
 def analyze (pptx_path, json_output_path=None):
+    print(f"****** {pptx_path} ******")
     prs = Presentation(pptx_path)
     data = []
 
@@ -54,5 +55,5 @@ def analyze (pptx_path, json_output_path=None):
     return data
 
 
-analyze("press.pptx", "resultado.json")
+# analyze("press.pptx", "resultado.json")
 # pip install python-pptx

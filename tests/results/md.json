@@ -1,0 +1,364 @@
+{
+  "content": [
+    {
+      "title": "📄 RAG File Scrapper API",
+      "content": "_> made out of Ker SDB parts <_\n\nA powerful and intelligent Flask-based API that automatically extracts and processes content from various file formats. Built for scalability and ease of use with comprehensive document processing capabilities.",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "✨ Features",
+      "content": "- 🔄 **Dynamic Processing**: Automatically detects file type and uses the appropriate scrapper\n- 📝 **Multiple Formats**: Support for Markdown (`.md`), PDF (`.pdf`) and PowerPoint (`.pptx`)\n- 🌐 **Full UTF-8**: Perfect handling of special characters and accents\n- ⚙️ **External Configuration**: Easy modification of extensions and server settings\n- 🛡️ **Robust Error Handling**: Complete validations and clear error messages\n- 📊 **Additional Endpoints**: Health check and supported extensions query\n- 🧪 **Testing Framework**: Built-in testing suite with sample files\n- 🚀 **Automated Setup**: One-command installation and execution",
+      "ntitle": 2,
+      "links": false
+    },
+    {
+      "title": "📁 Project Structure",
+      "content": "```\nrag_file_scrapper/\n├── 📄 api.py                      # Main Flask API\n├── ⚙️ config.json                 # System configurations\n├── 📋 requirements.txt            # Python dependencies\n├── 🔧 setup.sh                    # Automated setup script\n├── 🚀 run.sh                      # API execution script (auto-generated)\n├── 📖 README.md                   # This documentation\n├── 🚫 .gitignore                  # Git ignore rules\n├── 📁 scrappers/                  # Document processing modules\n│   ├── __pycache__/              # Python cache (auto-generated)\n│   ├── 🔍 get_md.py              # Markdown processor\n│   ├── 📋 get_pdf.py             # PDF processor\n│   └── 🎯 get_pptx.py            # PowerPoint processor\n├── 📁 tests/                      # Testing framework\n│   ├── 📁 samples/               # Test documents\n│   │   ├── 📄 documentacion.pdf  # Sample PDF file\n│   │   ├── 📝 ensayo.docx        # Sample Word document\n│   │   └── 🎯 press_peste.pptx   # Sample PowerPoint\n│   ├── 📁 results/               # Test output files\n│   │   ├── 📊 md.json            # Markdown test results\n│   │   ├── 📊 pdf.json           # PDF test results\n│   │   └── 📊 pptx.json          # PowerPoint test results\n│   └── 🧪 test.sh                # Automated testing script\n└── 📁 venv/                       # Virtual environment (auto-generated)\n```",
+      "ntitle": 2,
+      "links": false
+    },
+    {
+      "title": "Automated Setup (Recommended):",
+      "content": "```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Clone the repository",
+      "content": "git clone https://github.com/OmarSaldanna/file_scrapper_api.git\ncd rag_file_scrapper",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "One-command setup",
+      "content": "chmod +x setup.sh && ./setup.sh",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Start the API",
+      "content": "./run.sh",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Run tests (optional)",
+      "content": "chmod +x tests/test.sh && ./tests/test.sh\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Manual Setup:",
+      "content": "```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Clone and setup",
+      "content": "git clone https://github.com/OmarSaldanna/file_scrapper_api.git\ncd rag_file_scrapper\npython3 -m venv venv\nsource venv/bin/activate  # Windows: venv\\Scripts\\activate\npip install -r requirements.txt",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Start API",
+      "content": "python api.py",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Test the API",
+      "content": "curl http://localhost:5670/health\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Option 1: Automated Setup (Recommended) 🚀",
+      "content": "**Complete setup with one command:**\n\n```bash\nchmod +x setup.sh\n./setup.sh\n```\n\nThe `setup.sh` script automatically:\n- ✅ Detects Python installation (python3/python)\n- ✅ Creates virtual environment in `./venv/`\n- ✅ Installs all dependencies from `requirements.txt`\n- ✅ Creates executable `run.sh` script with absolute paths\n- ✅ Generates `requirements.txt` template if missing\n- ✅ Provides colored output and error handling",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Option 2: Manual Installation",
+      "content": "**Step-by-step manual setup:**\n\n1. **Clone and navigate:**\n```bash\ngit clone https://github.com/OmarSaldanna/file_scrapper_api.git\ncd rag_file_scrapper\n```\n\n2. **Create virtual environment:**\n```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Linux/macOS",
+      "content": "python3 -m venv venv\nsource venv/bin/activate",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Windows",
+      "content": "python -m venv venv\nvenv\\Scripts\\activate\n```\n\n3. **Install dependencies:**\n```bash\npip install --upgrade pip\npip install -r requirements.txt\n```\n\n4. **Configure system:**\nEdit `config.json` as needed (optional)\n\n5. **Start API:**\n```bash\npython api.py\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "📤 Process File",
+      "content": "**Endpoint:** `POST /process-file`\n\nProcesses a file and extracts its content using the appropriate scrapper.\n\n**Request:**\n```bash\ncurl -X POST http://localhost:5670/process-file \\\n  -H \"Content-Type: application/json; charset=utf-8\" \\\n  -d '{\"file\": \"/absolute/path/to/document.pdf\"}' \\\n  -o result.json\n```\n\n**Request Body:**\n```json\n{\n  \"file\": \"/absolute/path/to/your/file.pdf\"\n}\n```\n\n**Success Response (200):**\n```json\n{\n  \"content\": {\n    \"title\": \"Document Title\",\n    \"text\": \"Extracted content...\",\n    \"metadata\": {\n      \"pages\": 10,\n      \"author\": \"Author Name\"\n    }\n  }\n}\n```\n\n**Error Responses:**\n```json\n// Missing file parameter (400)\n{\n  \"error\": \"Parameter 'file' is required\"\n}\n\n// File not found (404)\n{\n  \"error\": \"File not found: /path/to/file.pdf\"\n}\n\n// Unsupported extension (400)\n{\n  \"error\": \"Unsupported extension: .doc\",\n  \"supported_extensions\": [\".md\", \".pdf\", \".pptx\"]\n}\n```",
+      "ntitle": 4,
+      "links": false
+    },
+    {
+      "title": "🏥 Health Check",
+      "content": "**Endpoint:** `GET /health`\n\nVerifies API status and availability.\n\n```bash\ncurl http://localhost:5670/health\n```\n\n**Response:**\n```json\n{\n  \"status\": \"OK\",\n  \"message\": \"API working correctly\"\n}\n```",
+      "ntitle": 4,
+      "links": false
+    },
+    {
+      "title": "📋 Supported Extensions",
+      "content": "**Endpoint:** `GET /supported-extensions`\n\nReturns list of supported file extensions.\n\n```bash\ncurl http://localhost:5670/supported-extensions\n```\n\n**Response:**\n```json\n{\n  \"supported_extensions\": [\".md\", \".pdf\", \".pptx\"]\n}\n```",
+      "ntitle": 4,
+      "links": false
+    },
+    {
+      "title": "config.json Structure",
+      "content": "```json\n{\n  \"extension_mappings\": {\n    \".md\": \"scrappers.get_md\",\n    \".pdf\": \"scrappers.get_pdf\",\n    \".pptx\": \"scrappers.get_pptx\"\n  },\n  \"server_config\": {\n    \"debug\": true,\n    \"host\": \"0.0.0.0\",\n    \"port\": 5670\n  }\n}\n```",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Configuration Options",
+      "content": "| Section | Key | Description | Default |\n| `extension_mappings` | `.pdf` | PDF processor module | `scrappers.get_pdf` |\n| `extension_mappings` | `.pptx` | PowerPoint processor | `scrappers.get_pptx` |\n| `extension_mappings` | `.md` | Markdown processor | `scrappers.get_md` |\n| `server_config` | `debug` | Debug mode | `true` |\n| `server_config` | `host` | Server host | `0.0.0.0` |\n| `server_config` | `port` | Server port | `5670` |",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Adding New File Types",
+      "content": "1. **Create scrapper module:**\n```python",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "scrappers/get_txt.py",
+      "content": "def analyze(input_file):\n    \"\"\"\n    Process text file and extract content\n    \n    Args:\n        input_file (str): Absolute path to file\n        \n    Returns:\n        dict: Processed content\n    \"\"\"\n    with open(input_file, 'r', encoding='utf-8') as f:\n        content = f.read()\n    \n    return {\n        \"content\": content,\n        \"word_count\": len(content.split()),\n        \"line_count\": len(content.splitlines())\n    }\n```\n\n2. **Update config.json:**\n```json\n{\n  \"extension_mappings\": {\n    \".md\": \"scrappers.get_md\",\n    \".pdf\": \"scrappers.get_pdf\",\n    \".pptx\": \"scrappers.get_pptx\",\n    \".txt\": \"scrappers.get_txt\"\n  }\n}\n```\n\n3. **Restart API:**\n```bash\n./run.sh\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Automated Testing",
+      "content": "The project includes a comprehensive testing framework:\n\n```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Make test script executable",
+      "content": "chmod +x tests/test.sh",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Run all tests",
+      "content": "./tests/test.sh\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Test Structure",
+      "content": "- **`tests/samples/`**: Contains sample files for testing\n  - `documentacion.pdf`: Sample PDF document\n  - `ensayo.docx`: Sample Word document\n  - `press_peste.pptx`: Sample PowerPoint presentation\n\n- **`tests/results/`**: Stores test output\n  - `pdf.json`: PDF processing results\n  - `pptx.json`: PowerPoint processing results\n  - `md.json`: Markdown processing results\n\n- **`tests/test.sh`**: Automated testing script",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Manual Testing",
+      "content": "**Test each endpoint individually:**\n\n```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Health check",
+      "content": "curl http://localhost:5670/health",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Supported extensions",
+      "content": "curl http://localhost:5670/supported-extensions",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Process PDF",
+      "content": "curl -X POST http://localhost:5670/process-file \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"file\": \"$(pwd)/tests/samples/documentacion.pdf\"}' \\\n  -o test_result.json",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Process PowerPoint",
+      "content": "curl -X POST http://localhost:5670/process-file \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"file\": \"$(pwd)/tests/samples/press_peste.pptx\"}' \\\n  -o test_pptx.json\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Scrapper Development Guidelines",
+      "content": "Each scrapper module must implement:\n\n```python\ndef analyze(input_file):\n    \"\"\"\n    Process file and extract content\n    \n    Args:\n        input_file (str): Absolute path to the file\n        \n    Returns:\n        dict: Dictionary with processed content\n        \n    Raises:\n        Exception: If processing fails\n    \"\"\"\n    # Implementation here\n    pass\n```",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Scrapper Requirements",
+      "content": "- **Function name**: Must be `analyze`\n- **Parameter**: Single string parameter (absolute file path)\n- **Return type**: Python dictionary\n- **Error handling**: Raise exceptions for processing errors\n- **Encoding**: Handle UTF-8 properly",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Example Scrapper Implementation",
+      "content": "```python",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "scrappers/get_example.py",
+      "content": "import os\nfrom pathlib import Path\n\ndef analyze(input_file):\n    \"\"\"Example scrapper implementation\"\"\"\n    \n    # Validate file exists\n    if not os.path.exists(input_file):\n        raise FileNotFoundError(f\"File not found: {input_file}\")\n    \n    # Get file info\n    file_path = Path(input_file)\n    file_stats = file_path.stat()\n    \n    try:\n        # Process file (example implementation)\n        with open(input_file, 'r', encoding='utf-8') as f:\n            content = f.read()\n        \n        # Return structured data\n        return {\n            \"filename\": file_path.name,\n            \"size_bytes\": file_stats.st_size,\n            \"content\": content,\n            \"word_count\": len(content.split()),\n            \"character_count\": len(content),\n            \"processed_at\": file_stats.st_mtime\n        }\n        \n    except Exception as e:\n        raise Exception(f\"Error processing {input_file}: {str(e)}\")\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Core Framework",
+      "content": "- **Flask**: Web framework and API foundation\n- **Werkzeug**: WSGI utilities and development server\n- **Jinja2**: Template engine (Flask dependency)\n- **MarkupSafe**: Safe string handling\n- **itsdangerous**: Cryptographic signing\n- **click**: Command-line interface utilities\n- **blinker**: Object signaling system",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Document Processing",
+      "content": "- **python-pptx**: PowerPoint document processing\n  - Used for: `from pptx import Presentation`\n- **PyMuPDF**: PDF processing and text extraction\n  - Alternative name: `fitz`\n- **tiktoken**: Text tokenization for AI/ML applications",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Standard Library (No Installation Required)",
+      "content": "- **collections**: Counter, defaultdict utilities\n- **json**: JSON parsing and generation\n- **os**: Operating system interface\n- **pathlib**: Object-oriented filesystem paths",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Development & Testing",
+      "content": "- **requests**: HTTP library (for testing)\n- **pytest**: Testing framework (optional)",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "🚨 HTTP Status Codes",
+      "content": "| Code | Status | Description | Example |\n| 200 | ✅ Success | File processed successfully | Valid file processed |\n| 400 | ❌ Bad Request | Invalid request parameters | Missing 'file' parameter |\n| 404 | 🔍 Not Found | File not found | Invalid file path |\n| 500 | 💥 Server Error | Internal processing error | Scrapper module error |",
+      "ntitle": 2,
+      "links": false
+    },
+    {
+      "title": "Using Automated Scripts",
+      "content": "**Start API (after setup.sh):**\n```bash\n./run.sh\n```\n\n**Features of run.sh:**\n- ✅ Automatically activates virtual environment\n- ✅ Changes to correct project directory\n- ✅ Validates environment setup\n- ✅ Provides colored status output\n- ✅ Uses absolute paths (works from anywhere)",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Manual Execution",
+      "content": "**Activate environment and run:**\n```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Activate virtual environment",
+      "content": "source venv/bin/activate  # Windows: venv\\Scripts\\activate",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Start API",
+      "content": "python api.py",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Access API at: http://localhost:5670",
+      "content": "```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Production Deployment",
+      "content": "**For production environments:**\n\n1. **Update config.json:**\n```json\n{\n  \"server_config\": {\n    \"debug\": false,\n    \"host\": \"127.0.0.1\",\n    \"port\": 8080\n  }\n}\n```\n\n2. **Use production WSGI server:**\n```bash\npip install gunicorn\ngunicorn -w 4 -b 0.0.0.0:8080 api:app\n```",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Development Workflow",
+      "content": "1. **Fork the repository**\n2. **Create feature branch:**\n```bash\ngit checkout -b feature/amazing-feature\n```\n\n3. **Make changes and test:**\n```bash\n./tests/test.sh\n```\n\n4. **Commit changes:**\n```bash\ngit commit -m 'Add amazing feature'\n```\n\n5. **Push and create Pull Request:**\n```bash\ngit push origin feature/amazing-feature\n```",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Code Standards",
+      "content": "- **Python Style**: Follow PEP 8\n- **Documentation**: Document all functions\n- **Testing**: Add tests for new features\n- **Error Handling**: Proper exception handling\n- **UTF-8**: Support international characters",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Adding New Scrappers",
+      "content": "1. Create scrapper in `scrappers/` directory\n2. Implement `analyze(input_file)` function\n3. Update `config.json` extension mappings\n4. Add test samples to `tests/samples/`\n5. Update documentation",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "🔒 Security Considerations",
+      "content": "- **File Path Validation**: API validates file existence\n- **Input Sanitization**: JSON input validation\n- **Error Information**: Limited error details in responses\n- **File Access**: Only processes files with absolute paths\n- **Virtual Environment**: Isolated dependency management",
+      "ntitle": 2,
+      "links": false
+    },
+    {
+      "title": "📝 Important Notes",
+      "content": "- ⚠️ **Absolute Paths**: API requires absolute file paths\n- 🔤 **UTF-8 Support**: Full international character support\n- 🔧 **External Configuration**: All settings in `config.json`\n- 🛡️ **Robust Validation**: File existence and parameter validation\n- 🐍 **Virtual Environment**: Always use isolated environments\n- 🚀 **Automated Tools**: Use `setup.sh` and `run.sh` for efficiency\n- 🧪 **Built-in Testing**: Comprehensive testing framework included\n- 📊 **Sample Data**: Test files provided in `tests/samples/`",
+      "ntitle": 2,
+      "links": false
+    },
+    {
+      "title": "Common Issues",
+      "content": "**API won't start:**\n```bash",
+      "ntitle": 3,
+      "links": false
+    },
+    {
+      "title": "Check virtual environment",
+      "content": "source venv/bin/activate\npython --version",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Reinstall dependencies",
+      "content": "pip install -r requirements.txt\n```\n\n**File not found errors:**\n```bash",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Use absolute paths",
+      "content": "curl -X POST http://localhost:5670/process-file \\\n  -d '{\"file\": \"'$(pwd)'/tests/samples/documentacion.pdf\"}'\n```\n\n**UTF-8 encoding issues:**\n```bash",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Use proper headers",
+      "content": "curl -H \"Content-Type: application/json; charset=utf-8\" \\\n  -X POST http://localhost:5670/process-file \\\n  -d '{\"file\": \"/path/to/file.pdf\"}'\n```\n\n**Permission errors:**\n```bash",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "Make scripts executable",
+      "content": "chmod +x setup.sh run.sh tests/test.sh\n```",
+      "ntitle": 1,
+      "links": false
+    },
+    {
+      "title": "📄 License",
+      "content": "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.",
+      "ntitle": 2,
+      "links": true
+    },
+    {
+      "title": "🆘 Support",
+      "content": "- 📖 **Documentation**: This README\n- 🐛 **Issues**: [GitHub Issues](../../issues)\n- 💡 **Feature Requests**: [GitHub Discussions](../../discussions)\n- 🤝 **Contributions**: [Pull Requests](../../pulls)\n\n---\n\n<div align=\"center\">\n\n**RAG File Scrapper API** - Intelligent Document Processing Made Simple\n\n[🚀 Get Started](#-quick-start) • [📖 Documentation](#-rag-file-scrapper-api) • [🧪 Testing](#-testing) • [🤝 Contribute](#-contributing)\n\n*Built with ❤️ using Flask and Python*\n\n</div>",
+      "ntitle": 2,
+      "links": true
+    }
+  ]
+}
