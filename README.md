@@ -17,7 +17,7 @@ A powerful and intelligent Flask-based API that automatically extracts and proce
 ## 📁 Project Structure
 
 ```
-rag_file_scrapper/
+file_scrapper_api/
 ├── 📄 api.py                      # Main Flask API
 ├── ⚙️ config.json                 # System configurations
 ├── 📋 requirements.txt            # Python dependencies
@@ -49,7 +49,7 @@ rag_file_scrapper/
 ```bash
 # Clone the repository
 git clone https://github.com/OmarSaldanna/file_scrapper_api.git
-cd rag_file_scrapper
+cd file_scrapper_api
 
 # One-command setup
 chmod +x setup.sh && ./setup.sh
@@ -65,7 +65,7 @@ chmod +x tests/test.sh && ./tests/test.sh
 ```bash
 # Clone and setup
 git clone https://github.com/OmarSaldanna/file_scrapper_api.git
-cd rag_file_scrapper
+cd file_scrapper_api
 python3 -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -103,7 +103,7 @@ The `setup.sh` script automatically:
 1. **Clone and navigate:**
 ```bash
 git clone https://github.com/OmarSaldanna/file_scrapper_api.git
-cd rag_file_scrapper
+cd file_scrapper_api
 ```
 
 2. **Create virtual environment:**
