@@ -47,6 +47,9 @@ file_scrapper_api/
 
 ### Automated Setup (Recommended):
 ```bash
+# Note, for linux users, check you have this:
+# sudo apt install python3.13-venv
+
 # Clone the repository
 git clone https://github.com/OmarSaldanna/file_scrapper_api.git
 cd file_scrapper_api
